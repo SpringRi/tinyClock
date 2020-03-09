@@ -4,7 +4,6 @@
 #include <QTime>
 #include <QTimer>
 
-#include "digitalclock.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,14 +12,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     timer = nullptr;
+
+    player = new QMediaPlayer;
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    delete player;
 }
-
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -35,9 +37,8 @@ void MainWindow::on_pushButton_clicked()
 
     // 此处需要启动计时器
     start_clock(minutes_left);
+
 }
-
-
 
 void MainWindow::slots_show_time()
 {
@@ -56,9 +57,11 @@ void MainWindow::slots_show_time()
         timer->stop();
 
         stop_clock();
+
+        bell_ring();
+
     }
 }
-
 
 void MainWindow::start_clock(quint64 minute_num)
 {
@@ -88,4 +91,15 @@ void MainWindow::stop_clock()
     }
 
     return;
+}
+
+void MainWindow::bell_ring()
+{
+    player->setVolume(40);
+    player->setMedia(QUrl::fromLocalFile("/home/john/Music/CloudMusic/Soulostar - In Time.mp3"));
+    player->play();
+
+    // 响铃 20s 即可关闭
+    QTimer::singleShot(20000, player, SLOT(player->stop()));
+
 }
