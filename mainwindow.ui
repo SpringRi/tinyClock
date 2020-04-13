@@ -88,11 +88,11 @@
      <string>分钟</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>15</x>
+      <y>11</y>
       <width>421</width>
       <height>411</height>
      </rect>
